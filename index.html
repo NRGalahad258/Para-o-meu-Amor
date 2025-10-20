@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Você — Meu Amor</title>
+    <style>
+        :root {
+            --bg: #6d1b28;
+            --text: #f5e3da;
+            --accent: #e9b9b3;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background: var(--accent);
+            color: #5a0c1b;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            display: none;
+            padding: 30px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .message {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            animation: fadeIn 2s;
+        }
+        
+        .poem-box {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 3s;
+            position: relative;
+        }
+        
+        .poem-title {
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .poem {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+        
+        .audio-player {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .audio-player audio {
+            width: 100%;
+            max-width: 400px;
+            margin: 10px 0;
+        }
+        
+        .audio-label {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .final-message {
+            margin-top: 40px;
+            animation: fadeIn 4s;
+        }
+        
+        .final-title {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .contador-tempo {
+            background: rgba(255,255,255,0.08);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            animation: fadeIn 2s;
+        }
+        
+        .contador-numero {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .video-final {
+            margin: 40px auto 20px;
+            text-align: center;
+            animation: fadeIn 5s;
+        }
+        
+        .video-final video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-height: 500px;
+            background: #000;
+        }
+        
+        .video-titulo {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            transform: rotate(-45deg);
+            opacity: 0.7;
+            animation: float 6s linear infinite;
+        }
+        
+        .heart:before, .heart:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        
+        .heart:before {
+            top: -10px;
+            left: 0;
+        }
+        
+        .heart:after {
+            left: 10px;
+            top: 0;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(-45deg); opacity: 0.7; }
+            100% { transform: translateY(-100vh) rotate(-45deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="loginContainer">
+        <div class="login-card">
+            <div class="logo">Para Você</div>
+            <div class="subtitle">Um site feito com carinho só para você, meu amor 💖</div>
+            
+            <input type="text" id="username" placeholder="Digite seu nome ou apelido">
+            <input type="password" id="password" placeholder="Digite a senha">
+            <button id="loginBtn">Entrar</button>
+        </div>
+    </div>
+    
+    <div class="content" id="content">
+        <div class="message">Tu és o amor que eu escolhi para toda a minha vida.</div>
+        
+        <div class="poem-box">
+            <h1 class="poem-title">Ooh meu amor...</h1>
+            
+            <!-- PLAYER DA SUA NARRAÇÃO -->
+            <div class="audio-player">
+                <span class="audio-label">🎙️ Ouça eu lendo este poema para você:</span>
+                <audio controls>
+                    <source src="JACKS.mp3" type="audio/mpeg">
+                    Seu navegador não suporta áudio.
+                </audio>
+            </div>
+            
+            <div class="poem">
+                Se eu pudesse, amor, desenharia o universo<br>
+                em cada linha do teu sorriso,<br>
+                e guardaria cada estrela no teu olhar<br>
+                para que ninguém mais pudesse ofuscar a tua luz.<br><br>
+
+                Quando penso em você, meu mundo se aquieta,<br>
+                e até o silêncio parece sussurrar teu nome.<br><br>
+                Cada batida do meu coração
+                é uma promessa: amar você como ninguém jamais amou.<br><br>
+
+                Você não é só minha namorada,<br><br>
+                é minha poesia, minha canção favorita,<br>
+                o lar onde descanso minha alma,<br>
+                o sonho que me faz querer viver mais.<br><br>
+
+                Sei que palavras são frágeis diante de você,<br>
+                mas ainda assim digo:<br>
+                eu te amo como se o mundo inteiro dependesse disso,<br>
+                como se cada segundo sem você fosse um inverno sem fim.<br><br>
+
+                E se algum dia você duvidar,<br>
+                lembre-se disso:<br>
+                em mim, você sempre será o amor mais bonito,<br>
+                a razão de todos os meus suspiros,<br>
+                a eternidade que encontrei em um único abraço.
+            </div>
+        </div>
+
+        <div class="contador-tempo">
+            <h3 style="color: var(--accent); margin-bottom: 20px; font-size: 1.8rem;">💖 Nosso Tempo Juntos</h3>
+            
+            <div class="tempo-total" style="font-size: 1.4rem; margin-bottom: 20px; line-height: 1.6;">
+                <div>Juntos há: <span class="contador-numero" id="anos">2</span> anos, 
+                            <span class="contador-numero" id="meses">10</span> meses, 
+                            <span class="contador-numero" id="dias">15</span> dias</div>
+                <div style="font-size: 1.2rem; margin-top: 8px;">
+                    <span class="contador-numero" id="horas">8</span>h 
+                    <span class="contador-numero" id="minutos">45</span>m 
+                    <span class="contador-numero" id="segundos">30</span>s
+                </div>
+            </div>
+            
+            <div class="proximo-marco" style="font-size: 1.3rem; color: var(--accent); padding: 15px; background: rgba(233, 185, 179, 0.1); border-radius: 10px;">
+                <div>🕐 Para nossos 3 anos:</div>
+                <div style="font-size: 1.5rem; margin-top: 8px; font-weight: bold;">
+                    <span class="contador-numero" id="dias-3-anos">385</span> dias 
+                    <span class="contador-numero" id="horas-3-anos">12</span>h 
+                    <span class="contador-numero" id="minutos-3-anos">30</span>m 
+                    <span class="contador-numero" id="segundos-3-anos">15</span>s
+                </div>
+            </div>
+        </div>
+        
+        <div class="final-message">
+            <h2 class="final-title">Eu te amo meu amor</h2>
+            <p>Tu és o amor da minha vida.</p>
+        </div>
+
+        <!-- SEU VÍDEO AQUI -->
+        <div class="video-final">
+            <div class="video-titulo">📹 Nossa História em Vídeo</div>
+            <video controls autoplay muted loop>
+                <source src="jacks.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginBtn').addEventListener('click', function() {
+            const username = document.getElementById('username').value.toLowerCase().trim();
+            const password = document.getElementById('password').value.trim();
+            
+            if (username === 'jacare' && password === '22012023') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+                // TOCAR SUA MÚSICA DE FUNDO AQUI
+                const audio = new Audio('jacks.mp3');
+                audio.play();
+                audio.loop = true;
+                
+                // Criar corações
+                createHearts();
+            } else {
+                alert('Credenciais incorretas! Tente novamente.');
+            }
+        });
+        
+        function createHearts() {
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    
+                    const size = 15 + Math.random() * 20;
+                    heart.style.width = `${size}px`;
+                    heart.style.height = `${size}px`;
+                    heart.style.left = `${Math.random() * 100}vw`;
+                    heart.style.bottom = `-${size}px`;
+                    
+                    const duration = 5 + Math.random() * 5;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, duration * 1000);
+                }, i * 500);
+            }
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                
+                const size = 15 + Math.random() * 20;
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.bottom = `-${size}px`;
+                
+                const duration = 5 + Math.random() * 5;
+                heart.style.animationDuration = `${duration}s`;
+                
+                document.body.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000);
+            }, 2000);
+        }
+
+        // CONTADOR EM TEMPO REAL
+        function atualizarContador() {
+            const dataInicio = new Date('2023-01-22T00:00:00');
+            const agora = new Date();
+            
+            const diffTotal = agora - dataInicio;
+            const segundosTotal = Math.floor(diffTotal / 1000);
+            const minutosTotal = Math.floor(segundosTotal / 60);
+            const horasTotal = Math.floor(minutosTotal / 60);
+            const diasTotal = Math.floor(horasTotal / 24);
+            
+            const anos = Math.floor(diasTotal / 365);
+            const meses = Math.floor((diasTotal % 365) / 30);
+            const dias = (diasTotal % 365) % 30;
+            const horas = horasTotal % 24;
+            const minutos = minutosTotal % 60;
+            const segundos = segundosTotal % 60;
+            
+            document.getElementById('anos').textContent = anos;
+            document.getElementById('meses').textContent = meses;
+            document.getElementById('dias').textContent = dias;
+            document.getElementById('horas').textContent = horas.toString().padStart(2, '0');
+            document.getElementById('minutos').textContent = minutos.toString().padStart(2, '0');
+            document.getElementById('segundos').textContent = segundos.toString().padStart(2, '0');
+            
+            const data3Anos = new Date('2026-01-22T00:00:00');
+            const diff3Anos = data3Anos - agora;
+            
+            const segundos3Anos = Math.floor(diff3Anos / 1000);
+            const minutos3Anos = Math.floor(segundos3Anos / 60);
+            const horas3Anos = Math.floor(minutos3Anos / 60);
+            const dias3Anos = Math.floor(horas3Anos / 24);
+            
+            const horasRestantes = horas3Anos % 24;
+            const minutosRestantes = minutos3Anos % 60;
+            const segundosRestantes = segundos3Anos % 60;
+            
+            document.getElementById('dias-3-anos').textContent = dias3Anos;
+            document.getElementById('horas-3-anos').textContent = horasRestantes.toString().padStart(2, '0');
+            document.getElementById('minutos-3-anos').textContent = minutosRestantes.toString().padStart(2, '0');
+            document.getElementById('segundos-3-anos').textContent = segundosRestantes.toString().padStart(2, '0');
+        }
+
+        atualizarContador();
+        setInterval(atualizarContador, 1000);
+        
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('loginBtn').click();
+            }
+        });
+    </script>
+</body>
+</html>
